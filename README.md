@@ -1,11 +1,11 @@
 # standalone-resque
 Everything you need to start workers and queue up resque jobs.
-Includes a bootstraped irb
+Includes a bootstraped irb. This is intended as a guide for setting up your own projects.
 
 ## Setup
 ### Redis
-Before you can start queueing jobs, you need to install [Redis|http://redis.io/].
-For the sake of simplicity, this project assumes redis is running on localhost:6379
+Before you can start queueing jobs, you need to install [Redis](http://redis.io/).
+This project assumes redis is running on localhost:6379
 
 ### Configuring
 For simplicity I have provided a sample resque.yml file for configuring redis and resque.
@@ -26,7 +26,7 @@ This will configure resque with redis and load the sample files
 
 ### Queueing Jobs
 I have provided an example class that queues a resque job that writes a simple message.
-See lib/app.rb and lib/job.rb.
+See ```lib/app.rb and lib/job.rb```.
 This should give you enough guidance on how to use resque as stand alone.
 
 After starting the irb do:
@@ -41,7 +41,7 @@ my_app.async_message("Some Message")
 
 ```
 
-Thats it! you have enqueued a reque job
+Thats it! you have enqueued a resque job
 
 ## Starting Workers
 Now that you have some jobs queued up, you probably want to process them.
@@ -53,8 +53,8 @@ To start more than one:
 ```bash
 QUEUE=test COUNT=2 bundle exec rake resque:workers
 ```
-If you had jobs queued up, then you now have the file myfile.out
-in your root with a list of all the enqueued messages.
+If you had jobs queued up, then a file named myfile.out is created
+in your root with a list of all the processed messages.
 
 ## The magic
 What makes all of this work is this section in the Rakefile
@@ -64,4 +64,4 @@ Resque.redis = Redis.new(:host => resque_config['host'], :port => resque_config[
 ```
 
 If you need to run your code with a rake task then you only need to add the task to the Rakefile.
-If you want to run your code standalone then make sure your add that initialization on the calling class or file before you do any work.
+If you want to run your code standalone then make sure your add that initialization on the calling class or main file before you do any work.
